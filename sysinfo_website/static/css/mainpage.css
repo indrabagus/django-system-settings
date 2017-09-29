@@ -1,0 +1,15 @@
+
+ .dropdown .btn-profile{
+    border: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 11px 5px 11px 5px;
+    font-size:14px;
+    width: auto;
+    height: auto;    
+}
+
+.table-responsive{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
