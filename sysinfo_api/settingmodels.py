@@ -34,13 +34,42 @@ class LinuxMemInfo(object):
         meminfo=OrderedDict()
         with open('/proc/meminfo') as f:
             for line in f:
-                meminfo[line.split(':')[0]] = line.split(':')[1].strip()
+                meminfo[line.split(':')[0]] = int(line.split(':')[1].split('kB')[0].strip())
         return meminfo
 
     def __init__(self):
         meminfo = LinuxMemInfo._meminfo()
-        self.total_memory = meminfo['MemTotal']
-        self.free_memory = meminfo['MemFree']
+        self.__dict__ = meminfo
+
+class LinuxCPUInfo(object):
+    def _cpuinfo():
+        ''' Return the information in /proc/cpuinfo
+        as a dictionary in the following format:
+        cpu_info['proc0']={...}
+        cpu_info['proc1']={...}
+        '''
+        cpuinfo=OrderedDict()
+        procinfo=OrderedDict()
+        nprocs = 0
+        with open('/proc/cpuinfo') as f:
+            for line in f:
+                if not line.strip():
+                    # end of one processor
+                    cpuinfo['proc%s' % nprocs] = procinfo
+                    nprocs=nprocs+1
+                    # Reset
+                    procinfo=OrderedDict()
+                else:
+                    if len(line.split(':')) == 2:
+                        procinfo[line.split(':')[0].strip()] = line.split(':')[1].strip()
+                    else:
+                        procinfo[line.split(':')[0].strip()] = ''
+            
+        return cpuinfo
+
+    def __init__(self):
+        cpuinfo = LinuxCPUInfo._cpuinfo()
+
 
 
 class LinuxSysInfo(object):
