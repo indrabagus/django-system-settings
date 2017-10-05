@@ -1,0 +1,49 @@
+
+While the file shows kilobytes (kB; 1 kB equals 1000 B), it is actually kibibytes (KiB; 1 KiB equals 1024 B). This imprecision in /proc/meminfo is known, but is not corrected due to legacy concerns - programs rely on /proc/meminfo to specify size with the "kB" string.
+Much of the information in /proc/meminfo is used by the free, top, and ps commands. In fact, the output of the free command is similar in appearance to the contents and structure of /proc/meminfo. However, /proc/meminfo itself has more details:
+MemTotal — Total amount of usable RAM, in kibibytes, which is physical RAM minus a number of reserved bits and the kernel binary code.
+MemFree — The amount of physical RAM, in kibibytes, left unused by the system.
+Buffers — The amount, in kibibytes, of temporary storage for raw disk blocks.
+Cached — The amount of physical RAM, in kibibytes, used as cache memory.
+SwapCached — The amount of memory, in kibibytes, that has once been moved into swap, then back into the main memory, but still also remains in the swapfile. This saves I/O, because the memory does not need to be moved into swap again.
+Active — The amount of memory, in kibibytes, that has been used more recently and is usually not reclaimed unless absolutely necessary.
+Inactive — The amount of memory, in kibibytes, that has been used less recently and is more eligible to be reclaimed for other purposes.
+Active(anon) — The amount of anonymous and tmpfs/shmem memory, in kibibytes, that is in active use, or was in active use since the last time the system moved something to swap.
+Inactive(anon) — The amount of anonymous and tmpfs/shmem memory, in kibibytes, that is a candidate for eviction.
+Active(file) — The amount of file cache memory, in kibibytes, that is in active use, or was in active use since the last time the system reclaimed memory.
+Inactive(file) — The amount of file cache memory, in kibibytes, that is newly loaded from the disk, or is a candidate for reclaiming.
+Unevictable — The amount of memory, in kibibytes, discovered by the pageout code, that is not evictable because it is locked into memory by user programs.
+Mlocked — The total amount of memory, in kibibytes, that is not evictable because it is locked into memory by user programs.
+SwapTotal — The total amount of swap available, in kibibytes.
+SwapFree — The total amount of swap free, in kibibytes.
+Dirty — The total amount of memory, in kibibytes, waiting to be written back to the disk.
+Writeback — The total amount of memory, in kibibytes, actively being written back to the disk.
+AnonPages — The total amount of memory, in kibibytes, used by pages that are not backed by files and are mapped into userspace page tables.
+Mapped — The memory, in kibibytes, used for files that have been mmaped, such as libraries.
+Shmem — The total amount of memory, in kibibytes, used by shared memory (shmem) and tmpfs.
+Slab — The total amount of memory, in kibibytes, used by the kernel to cache data structures for its own use.
+SReclaimable — The part of Slab that can be reclaimed, such as caches.
+SUnreclaim — The part of Slab that cannot be reclaimed even when lacking memory.
+KernelStack — The amount of memory, in kibibytes, used by the kernel stack allocations done for each task in the system.
+PageTables — The total amount of memory, in kibibytes, dedicated to the lowest page table level.
+NFS_Unstable — The amount, in kibibytes, of NFS pages sent to the server but not yet committed to the stable storage.
+Bounce — The amount of memory, in kibibytes, used for the block device "bounce buffers".
+WritebackTmp — The amount of memory, in kibibytes, used by FUSE for temporary writeback buffers.
+CommitLimit — The total amount of memory currently available to be allocated on the system based on the overcommit ratio (vm.overcommit_ratio). This limit is only adhered to if strict overcommit accounting is enabled (mode 2 in vm.overcommit_memory). CommitLimit is calculated with the following formula:
+ ([total RAM pages] - [total huge TLB pages]) * overcommit_ratio
+───────────────────────────────────────────────────────────────── + [total swap pages]
+                           100
+For example, on a system with 1 GB of physical RAM and 7 GB of swap with a vm.overcommit_ratio of 30 it would yield a CommitLimit of 7.3 GB.
+Committed_AS — The total amount of memory, in kibibytes, estimated to complete the workload. This value represents the worst case scenario value, and also includes swap memory.
+VMallocTotal — The total amount of memory, in kibibytes, of total allocated virtual address space.
+VMallocUsed — The total amount of memory, in kibibytes, of used virtual address space.
+VMallocChunk — The largest contiguous block of memory, in kibibytes, of available virtual address space.
+HardwareCorrupted — The amount of memory, in kibibytes, with physical memory corruption problems, identified by the hardware and set aside by the kernel so it does not get used.
+AnonHugePages — The total amount of memory, in kibibytes, used by huge pages that are not backed by files and are mapped into userspace page tables.
+HugePages_Total — The total number of hugepages for the system. The number is derived by dividing Hugepagesize by the megabytes set aside for hugepages specified in /proc/sys/vm/hugetlb_pool. This statistic only appears on the x86, Itanium, and AMD64 architectures.
+HugePages_Free — The total number of hugepages available for the system. This statistic only appears on the x86, Itanium, and AMD64 architectures.
+HugePages_Rsvd — The number of unused huge pages reserved for hugetlbfs.
+HugePages_Surp — The number of surplus huge pages.
+Hugepagesize — The size for each hugepages unit in kibibytes. By default, the value is 4096 KB on uniprocessor kernels for 32 bit architectures. For SMP, hugemem kernels, and AMD64, the default is 2048 KB. For Itanium architectures, the default is 262144 KB. This statistic only appears on the x86, Itanium, and AMD64 architectures.
+DirectMap4k — The amount of memory, in kibibytes, mapped into kernel address space with 4 kB page mappings.
+DirectMap2M — The amount of memory, in kibibytes, mapped into kernel address space with 2 MB page mappings.

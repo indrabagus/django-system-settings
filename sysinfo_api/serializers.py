@@ -11,8 +11,16 @@ class LinuxPlatformSerializer(serializers.Serializer):
     architecture = serializers.CharField(read_only=True)
 
 class LinuxMemInfoSerializer(serializers.Serializer):
-    total_memory_ex = serializers.CharField(read_only=True,source='total_memory')
-    free_memory = serializers.CharField(read_only=True)
+    active = serializers.IntegerField(read_only=True,source='Active')    
+    active_str = serializers.CharField(read_only=True,source='Active')
+    mem_available = serializers.IntegerField(read_only=True,source='MemAvailable')
+    mem_available_str = serializers.CharField(read_only=True,source='MemAvailable')    
+    mem_free = serializers.IntegerField(read_only=True,source='MemFree')
+    mem_free_str = serializers.CharField(read_only=True,source='MemFree')
+    mem_total = serializers.IntegerField(read_only=True,source='MemTotal')    
+    mem_total_str = serializers.CharField(read_only=True,source='MemTotal')
+    kernel_stack = serializers.IntegerField(read_only=True,source='KernelStack')    
+    kernel_stack_str = serializers.CharField(read_only=True,source='KernelStack')            
 
 class LinuxSysInfoSerializer(serializers.Serializer):
     platform = LinuxPlatformSerializer(required=True)
